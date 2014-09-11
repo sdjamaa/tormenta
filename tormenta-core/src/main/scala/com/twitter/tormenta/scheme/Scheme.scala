@@ -16,8 +16,8 @@ limitations under the License.
 
 package com.twitter.tormenta.scheme
 
-import backtype.storm.tuple.{ Fields, Values }
 import backtype.storm.spout.MultiScheme
+import backtype.storm.tuple.{ Fields, Values }
 import java.util.{ List => JList }
 import scala.collection.JavaConverters._
 import java.io.Serializable

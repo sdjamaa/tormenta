@@ -10,7 +10,7 @@ import com.typesafe.sbt.SbtScalariform._
 object TormentaBuild extends Build {
 
   lazy val slf4jVersion = "1.6.6"
-  lazy val stormVersion = "0.9.0-wip15"
+  lazy val stormVersion = "0.9.2-incubating"
 
   val extraSettings =
     Project.defaultSettings ++ mimaDefaultSettings ++ scalariformSettings
@@ -25,14 +25,14 @@ object TormentaBuild extends Build {
 
   val sharedSettings = extraSettings ++ ciSettings ++ Seq(
     organization := "com.twitter",
-    version := "0.8.0",
-    scalaVersion := "2.9.3",
+    version := "0.8.1",
+    scalaVersion := "2.10.2",
     crossScalaVersions := Seq("2.9.3", "2.10.0"),
     javacOptions ++= Seq("-source", "1.6", "-target", "1.6"),
     javacOptions in doc := Seq("-source", "1.6"),
     libraryDependencies ++= Seq(
       "org.slf4j" % "slf4j-api" % slf4jVersion,
-      "storm" % "storm" % stormVersion % "provided",
+      "org.apache.storm" % "storm-core" % stormVersion % "provided",
       "org.scalacheck" %% "scalacheck" % "1.10.0" % "test",
       "org.scala-tools.testing" %% "specs" % "1.6.9" % "test"
     ),
@@ -120,7 +120,6 @@ object TormentaBuild extends Build {
     publishLocal := { }
   ).aggregate(
     tormentaCore,
-    tormentaKestrel,
     tormentaKafka,
     tormentaTwitter,
     tormentaAvro
@@ -144,12 +143,12 @@ object TormentaBuild extends Build {
   ).dependsOn(tormentaCore % "test->test;compile->compile")
 
   lazy val tormentaKafka = module("kafka").settings(
-    libraryDependencies += "storm" % "storm-kafka" % "0.9.0-wip6-scala292-multischeme"
+    libraryDependencies += "org.apache.storm" % "storm-kafka" % "0.9.2-incubating"
   ).dependsOn(tormentaCore % "test->test;compile->compile")
 
-  lazy val tormentaKestrel = module("kestrel").settings(
+/*  lazy val tormentaKestrel = module("kestrel").settings(
     libraryDependencies += "storm" % "storm-kestrel" % "0.9.0-wip5-multischeme"
-  ).dependsOn(tormentaCore % "test->test;compile->compile")
+  ).dependsOn(tormentaCore % "test->test;compile->compile")*/
 
   lazy val tormentaAvro = module("avro").settings(
     libraryDependencies ++= Seq(
