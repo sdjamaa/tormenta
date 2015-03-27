@@ -10,7 +10,7 @@ import com.typesafe.sbt.SbtScalariform._
 object TormentaBuild extends Build {
 
   lazy val slf4jVersion = "1.6.6"
-  lazy val stormVersion = "0.9.2-incubating"
+  lazy val stormVersion = "0.9.3"
 
   val extraSettings =
     Project.defaultSettings ++ mimaDefaultSettings ++ scalariformSettings
@@ -25,7 +25,7 @@ object TormentaBuild extends Build {
 
   val sharedSettings = extraSettings ++ ciSettings ++ Seq(
     organization := "com.twitter",
-    version := "0.8.1",
+    version := "0.9.1-sdj",
     scalaVersion := "2.10.2",
     crossScalaVersions := Seq("2.9.3", "2.10.0"),
     javacOptions ++= Seq("-source", "1.6", "-target", "1.6"),
